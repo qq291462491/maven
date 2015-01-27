@@ -197,9 +197,8 @@ fi
 MAVEN_OPTS="-agentpath:$YJPLIB=onexit=snapshot,onexit=memory,tracing,onlylocal $MAVEN_OPTS"
 
 . "$M2_HOME/bin/mvn-common.sh"
-export MAVEN_BASEDIR=${MAVEN_BASEDIR:-$(find_maven_basedir)}
-MAVEN_CONFIG=$(concat "$MAVEN_BASEDIR/.mvn/maven.config")
-MAVEN_OPTS="$(concat "$MAVEN_BASEDIR/.mvn/jvm.config") $MAVEN_OPTS"
+export MAVEN_PROJECTBASEDIR=${MAVEN_BASEDIR:-$(find_maven_basedir)}
+MAVEN_OPTS=$(concat "$MAVEN_PROJECTBASEDIR/.mvn/jvm.config") $MAVEN_OPTS
 
 # Provide a "standardized" way to retrieve the CLI args that will 
 # work with both Windows and non-Windows executions.
@@ -210,5 +209,5 @@ exec "$JAVACMD" \
   $MAVEN_OPTS \
   -classpath "${M2_HOME}"/boot/plexus-classworlds-*.jar \
   "-Dclassworlds.conf=${M2_HOME}/bin/m2.conf" \
-  "-Dmaven.home=${M2_HOME}"  \
-  ${CLASSWORLDS_LAUNCHER} $MAVEN_CONFIG "$@"
+  "-Dmaven.home=${M2_HOME}" "-Dmaven.projectBasedir=${MAVEN_PROJECTBASEDIR}" \
+  ${CLASSWORLDS_LAUNCHER} "$@"
