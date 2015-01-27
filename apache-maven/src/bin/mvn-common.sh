@@ -36,6 +36,8 @@ find_maven_basedir() {
 }
 
 # concatenates all lines of a file
-concat() {
-  echo "$(tr -s '\n' ' ' < $1)"
+concat_lines() {
+  if [ -f "$1" ]; then
+    echo "$(tr -s '\n' ' ' < "$1")"
+  fi
 }
