@@ -22,12 +22,12 @@
 
 # traverses directory structure from process work directory to filesystem root
 # first directory with .mvn subdirectory is considered project base directory
-function find_maven_basedir {
+find_maven_basedir() {
   local basedir=$(pwd)
   local wdir=$(pwd)
-  while [ "$wdir" != '/' ]; do
+  while [ "$wdir" != '/' ] ; do
     wdir=$(cd $wdir/..; pwd)
-    if [[ -d "$wdir"/.mvn ]]; then
+    if [ -d "$wdir"/.mvn ] ; then
       basedir=$wdir
       break
     fi
@@ -36,13 +36,6 @@ function find_maven_basedir {
 }
 
 # concatenates all lines of a file
-function concat {
-  local file=$1
-  local result=
-  if [ -f "$file" ]; then
-    while read -r line; do
-      result="$result $line"
-    done < "$file"
-  fi
-  echo "$result"
+concat() {
+  echo "$(tr -s '\n' ' ' < $1)"
 }
